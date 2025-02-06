@@ -27,6 +27,15 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 }
 
 const Home: NextPage = () => {
+  const { openContractCall, isRequestPending } = useOpenContractCall();
+  const { stxAddress } = MicroStacks.useAccount();
+  const [response, setResponse] = useState(null);
+  const { openAuthRequest, signOut, isSignedIn } = useAuth();
+  const [post, setPost] = useState('');
+  const [postedMessage, setPostedMessage] = useState('none');
+  const [contractAddress, setContractAddress] = useState(
+    'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM'
+  );
   return (
     <div className={styles.container}>
       <main className={styles.main}>
