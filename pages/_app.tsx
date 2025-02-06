@@ -5,6 +5,7 @@ import { destroySession, saveSession } from '../common/fetchers';
 
 import type { AppProps } from 'next/app';
 import type { ClientConfig } from '@micro-stacks/client';
+import { StacksMocknet } from 'micro-stacks/network';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const onPersistState: ClientConfig['onPersistState'] = useCallback(
@@ -18,13 +19,16 @@ function MyApp({ Component, pageProps }: AppProps) {
     await destroySession();
   }, []);
 
+  const network = new StacksMocknet();
+
   return (
     <ClientProvider
-      appName="Nextjs + Microstacks"
+      appName="Blockpost"
       appIconUrl="/vercel.png"
       dehydratedState={pageProps?.dehydratedState}
       onPersistState={onPersistState}
       onSignOut={onSignOut}
+      network={network}
     >
       <Component {...pageProps} />
     </ClientProvider>
