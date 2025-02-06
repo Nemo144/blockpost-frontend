@@ -5,6 +5,19 @@ import { getDehydratedStateFromSession } from '../common/session-helpers';
 
 import type { NextPage, GetServerSidePropsContext } from 'next';
 
+import { useState, useEffect, SetStateAction, useCallback } from 'react';
+import * as MicroStacks from '@micro-stacks/react';
+import { stringUtf8CV, standardPrincipalCV } from 'micro-stacks/clarity';
+import {
+  FungibleConditionCode,
+  makeStandardSTXPostCondition,
+  callReadOnlyFunction,
+} from 'micro-stacks/transactions';
+import { useOpenContractCall } from '@micro-stacks/react';
+import { useAuth } from '@micro-stacks/react';
+import { StacksMocknet } from 'micro-stacks/network';
+import useInterval from '@use-it/interval';
+
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   return {
     props: {
