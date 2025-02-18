@@ -8,16 +8,16 @@ import type { ClientConfig } from '@micro-stacks/client';
 import { StacksMocknet } from 'micro-stacks/network';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const onPersistState: ClientConfig['onPersistState'] = useCallback(
-    async (dehydratedState: string) => {
-      await saveSession(dehydratedState);
-    },
-    []
-  );
+  // const onPersistState: ClientConfig['onPersistState'] = useCallback(
+  //   async (dehydratedState: string) => {
+  //     await saveSession(dehydratedState);
+  //   },
+  //   []
+  // );
 
-  const onSignOut: ClientConfig['onSignOut'] = useCallback(async () => {
-    await destroySession();
-  }, []);
+  // const onSignOut: ClientConfig['onSignOut'] = useCallback(async () => {
+  //   await destroySession();
+  // }, []);
 
   const network = new StacksMocknet();
 
@@ -25,9 +25,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ClientProvider
       appName="Blockpost"
       appIconUrl="/vercel.png"
-      dehydratedState={pageProps?.dehydratedState}
-      onPersistState={onPersistState}
-      onSignOut={onSignOut}
+      // dehydratedState={pageProps?.dehydratedState}
+      // onPersistState={onPersistState}
+      // onSignOut={onSignOut}
       network={network}
     >
       <Component {...pageProps} />
