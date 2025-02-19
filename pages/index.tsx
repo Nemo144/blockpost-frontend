@@ -101,15 +101,50 @@ const Home: NextPage = () => {
   useInterval(getPost, 10000);
 
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+    <>
+      <div className="flex flex-row gap-12 items-center justify-center py-4">
         <UserCard />
         <WalletConnectButton />
-      </main>
-    </div>
+      </div>
+
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        {isSignedIn && (
+          <form
+            className="flex flex-col items-center justify-center text-2xl"
+            onSubmit={() => handleOpenContractCall()}
+          >
+            <p>
+              Post &nbsp;
+              <input
+                className="bg-white text-black placeholder:text-slate-500"
+                type="text"
+                value={post}
+                onChange={handleMessageChange}
+                placeholder="something"
+              />
+              &nbsp; for 1 STX
+            </p>
+
+            <button type="submit" className="px-10 py-4 bg-white text-black mt-12 rounded">
+              {isRequestPending ? 'request pending...' : 'Write post'}
+            </button>
+
+            <div className="mt-28">
+              {postedMessage !== 'none' ? (
+                <p>You posted &quot;{postedMessage}&quot;</p>
+              ) : (
+                <p>
+                  You have not posted anything yet.{' '}
+                  <span role="img" aria-label="woman shrugging">
+                    🤷‍♀️
+                  </span>
+                </p>
+              )}
+            </div>
+          </form>
+        )}
+      </div>
+    </>
   );
 };
 
